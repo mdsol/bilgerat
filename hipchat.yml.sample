@@ -1,0 +1,5 @@
+default:
+  user: 'Bilge Rat #{TEST_ENV_NUMBER}'
+  auth_token: 'goes here'
+  room: 'test room'
+  error_color: 'red'
