@@ -166,6 +166,7 @@ class HipchatAdapter
     # Send a message to a HipChat room
     # TODO: fork a thread so we don't block tests while we wait for the network
     def hip_post(message, options = {})
+      puts "hip_post() configured: #{ configured? }"
       return unless configured?
 
       def option(sym)
@@ -178,6 +179,7 @@ class HipchatAdapter
 
       begin
         client[config['room']].send(username, message, DEFAULTS.merge(options))
+        puts "sent msg to hipchat"
       rescue  => ex
         puts "Caught #{ex.class}; disabling hipchat notification"
         @configured = false
@@ -217,7 +219,11 @@ class HipchatAdapter
 
     # Are we configured to send messages to HipChat?  If not just drop messages.
     def configured?
-      @configured ||= config && config['room'] && config['auth_token'] if @configured.nil?
+      if @configured.nil?
+        @configured = !!(config && config['room'] && config['auth_token'])
+      else
+        @configured
+      end
     end
 
     def client
