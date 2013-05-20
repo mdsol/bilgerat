@@ -34,7 +34,7 @@ class Bilgerat
 
   def after_table_row(table_row)
     return unless @in_examples and Cucumber::Ast::OutlineTable::ExampleRow === table_row
-    @example_num += 1
+    @example_num += 1  if !@header_row
     if table_row.exception
       hipchat_exception(table_row.exception)
     elsif !@header_row && table_row.failed?
@@ -166,7 +166,7 @@ class HipchatAdapter
     # Send a message to a HipChat room
     # TODO: fork a thread so we don't block tests while we wait for the network
     def hip_post(message, options = {})
-      puts "hip_post() configured: #{ configured? }"
+      #puts "DEBUG hip_post(#{ message }) configured: #{ configured? }"
       return unless configured?
 
       def option(sym)

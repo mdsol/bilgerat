@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "bilgerat"
-  s.version = '0.1.0'
+  s.version = '0.1.1'
   s.platform = Gem::Platform::RUBY
   s.required_ruby_version     = '>= 1.9.3'
   s.authors = ["Joseph Shraibman"]
