@@ -166,7 +166,15 @@ class HipchatAdapter
     # Send a message to a HipChat room
     # TODO: fork a thread so we don't block tests while we wait for the network
     def hip_post(message, options = {})
-      #puts "DEBUG hip_post(#{ message }) configured: #{ configured? }"
+      if ENV['DEBUG_BILGERAT']
+        unless @debug_file
+          @debug_file = File.open(ENV['DEBUG_BILGERAT'], 'w')
+          @debug_file.puts "<debugfile>"
+          at_exit { @debug_file.puts "</debugfile>" }
+        end
+        @debug_file.puts "<HIPPOST>#{ message }</HIPPOST>"
+      end
+
       return unless configured?
 
       def option(sym)
