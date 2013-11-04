@@ -1,10 +1,17 @@
-
 def debug_file_name
   '/tmp/tempfile.xml'
 end
 
 When /^I run bilgerat with: `(.*)`$/ do |cmd|
   step %Q{I run `env DEBUG_BILGERAT=#{debug_file_name} #{cmd}`}
+end
+
+When /^I clear hipchat posts$/ do
+  File.delete(debug_file_name) if File.exists?(debug_file_name)
+end
+
+Before do
+  step 'I clear hipchat posts'
 end
 
 Then /^there should (not )?be a hipchat post matching \/(.*)\/$/ do |should_not, pattern|
