@@ -14,7 +14,7 @@ Feature: Error handling
     """
       Given /^this passes$/ do
       end
-     Given /^this passes$/ do
+      Given /^this passes$/ do
       end
       """
     When I run bilgerat with: `cucumber --format Bilgerat --out na --format pretty`
