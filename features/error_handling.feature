@@ -18,4 +18,4 @@ Feature: Error handling
       end
       """
     When I run bilgerat with: `cucumber --format Bilgerat --out na --format pretty`
-    Then there should be a hipchat post matching /Ambiguous match of "this passes"/
+    Then there should be a hipchat post matching /.*Ambiguous match of "this passes".*/
