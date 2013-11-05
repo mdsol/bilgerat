@@ -172,7 +172,8 @@ class HipchatAdapter
 
 
     # Send a message to a HipChat room
-    # TODO: fork a thread so we don't block tests while we wait for the network
+    # TODO: fork a thread so we don't block tests while we wait for the network. Also on the puts calls because on at
+    # least one occasion a call blocked and locked up cucumber.
     def hip_post(message, options = {})
       if ENV['DEBUG_BILGERAT']
         unless @debug_file
@@ -195,9 +196,9 @@ class HipchatAdapter
 
       begin
         client[config['room']].send(username, message, DEFAULTS.merge(options))
-        puts "sent msg to hipchat"
+        #puts "sent msg to hipchat"
       rescue  => ex
-        puts "Caught #{ex.class}; disabling hipchat notification"
+        STDERR.puts "Caught #{ex.class}; disabling hipchat notification"
         @configured = false
       end
     end

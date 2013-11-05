@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bilgerat (0.1.1)
+    bilgerat (0.2.1)
       cucumber (>= 1.0.0)
       hipchat (~> 0.7.0)
 
