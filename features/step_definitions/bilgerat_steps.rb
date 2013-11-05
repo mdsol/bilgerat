@@ -14,6 +14,11 @@ Before do
   step 'I clear hipchat posts'
 end
 
+# For debugging
+Then /^I print the hipchat posts$/ do
+  puts File.read(debug_file_name)
+end
+
 Then /^there should (not )?be a hipchat post matching \/(.*)\/$/ do |should_not, pattern|
   file_text = nil
   File.open(debug_file_name, 'r') do |file|
