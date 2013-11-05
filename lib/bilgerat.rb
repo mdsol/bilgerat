@@ -109,7 +109,7 @@ class Bilgerat
 
     # part2
     if @current_failed_step_info # Failing scenario or background, not example
-      sb << "#{ @current_failed_step_info[:step_match].format_args } # "
+      sb << "#{ current_step_match_to_str } # "
       fcl = @current_failed_step_info[:file_colon_line]  # line in the feature file, may be nil
       sb << fcl << ' → ' if fcl
       sb << @current_failed_step_info[:step_match].file_colon_line << "\n"
@@ -119,6 +119,14 @@ class Bilgerat
     end
 
     adapter.hip_post( "#{ sb }#{ build_exception_detail(exception) }", color: :error )
+  end
+
+  # Convert the step match (saved from step_name(), above into a string for outputting.
+  def current_step_match_to_str
+    current_step_match = @current_failed_step_info[:step_match]
+    # current_step_match might be a StepMatch or a NoStepMatch.  If a NoStepMatch we must pass in dummy argument to format_args
+    args = current_step_match.is_a?(Cucumber::NoStepMatch)? [nil] : []
+    current_step_match.format_args(*args)
   end
 
   def adapter
